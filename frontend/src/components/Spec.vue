@@ -10,18 +10,14 @@
         </template>
 
         <v-card-title v-if="value._links">
-            Machine # {{value._links.self.href.split("/")[value._links.self.href.split("/").length - 1]}}
+            Spec # {{value._links.self.href.split("/")[value._links.self.href.split("/").length - 1]}}
         </v-card-title >
         <v-card-title v-else>
-            Machine
+            Spec
         </v-card-title >
 
         <v-card-text>
-            <String label="Code" v-model="value.code" :editMode="editMode"/>
             <String label="Name" v-model="value.name" :editMode="editMode"/>
-            <String label="Spec" v-model="value.spec" :editMode="editMode"/>
-            <String label="Model" v-model="value.model" :editMode="editMode"/>
-            <SpecId offline label="SpecId" v-model="value.specId" :editMode="editMode" @change="change"/>
         </v-card-text>
 
         <v-card-actions>
@@ -40,7 +36,7 @@
                     @click="save"
                     v-else
             >
-                MachineCom
+                SpecCom
             </v-btn>
             <v-btn
                     color="deep-purple lighten-2"
@@ -83,7 +79,7 @@
 
 
     export default {
-        name: 'Machine',
+        name: 'Spec',
         components:{
         },
         props: {
@@ -135,7 +131,7 @@
 
                     if(!this.offline) {
                         if(this.isNew) {
-                            temp = await axios.post(axios.fixUrl('/machines'), this.value)
+                            temp = await axios.post(axios.fixUrl('/specs'), this.value)
                         } else {
                             temp = await axios.put(axios.fixUrl(this.value._links.self.href), this.value)
                         }

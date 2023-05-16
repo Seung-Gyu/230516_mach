@@ -1,23 +1,13 @@
 <template>
     <v-card outlined>
         <v-card-title>
-            Machine # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
+            Spec # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
         </v-card-title>
 
         <v-card-text>
             <div>
-                <String label="Code" v-model="item.code" :editMode="editMode" @change="change" />
-            </div>
-            <div>
                 <String label="Name" v-model="item.name" :editMode="editMode" @change="change" />
             </div>
-            <div>
-                <String label="Spec" v-model="item.spec" :editMode="editMode" @change="change" />
-            </div>
-            <div>
-                <String label="Model" v-model="item.model" :editMode="editMode" @change="change" />
-            </div>
-            <SpecId offline label="SpecId" v-model="item.specId" :editMode="false" :key="false" @change="change" />
         </v-card-text>
 
         <v-card-actions>
@@ -64,7 +54,7 @@
     const axios = require('axios').default;
 
     export default {
-        name: 'MachineDetail',
+        name: 'SpecDetail',
         components:{},
         props: {
         },
@@ -75,7 +65,7 @@
         async created() {
             var me = this;
             var params = this.$route.params;
-            var temp = await axios.get(axios.fixUrl('/machines/' + params.id))
+            var temp = await axios.get(axios.fixUrl('/specs/' + params.id))
             if(temp.data) {
                 me.item = temp.data
             }

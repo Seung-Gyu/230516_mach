@@ -1,12 +1,12 @@
 <template>
     <div>
         <v-card-title @click="openDialog" style="cursor: pointer;">
-            Machine : 
+            Spec : 
         </v-card-title>
 
         <v-dialog v-model="pickerDialog">
             <v-card>
-                <v-card-title>Machine</v-card-title>
+                <v-card-title>Spec</v-card-title>
                 <v-card-text>
                     <v-list two-line v-if="list.length > 0">
                         <v-list-item-group 
@@ -23,19 +23,7 @@
                                         <v-list-item-title>
                                         </v-list-item-title>
                                         <v-list-item-subtitle>
-                                            Code :  {{item.code }}
-                                        </v-list-item-subtitle>
-                                        <v-list-item-subtitle>
                                             Name :  {{item.name }}
-                                        </v-list-item-subtitle>
-                                        <v-list-item-subtitle>
-                                            Spec :  {{item.spec }}
-                                        </v-list-item-subtitle>
-                                        <v-list-item-subtitle>
-                                            Model :  {{item.model }}
-                                        </v-list-item-subtitle>
-                                        <v-list-item-subtitle>
-                                            SpecId :  {{item.specId }}
                                         </v-list-item-subtitle>
                                     </v-list-item-content>
 
@@ -61,7 +49,7 @@
     const axios = require('axios').default;
 
     export default {
-        name: 'MachinePicker',
+        name: 'SpecPicker',
         props: {
             value: [String, Object, Array, Number, Boolean],
             editMode: Boolean,
@@ -74,26 +62,18 @@
         }),
         async created() {
             var me = this;
-            var temp = await axios.get(axios.fixUrl('/machines'))
+            var temp = await axios.get(axios.fixUrl('/specs'))
             if(temp.data) {
-                me.list = temp.data._embedded.machines;
+                me.list = temp.data._embedded.specs;
             }
 
             if(me.value && typeof me.value == "object" && Object.values(me.value)[0]) {
                 var idKey = 'id'
                 
-                
-                
-                
-                
                 var id = me.value[idKey];
-                var tmpValue = await axios.get(axios.fixUrl('/machines/' + id))
+                var tmpValue = await axios.get(axios.fixUrl('/specs/' + id))
                 if(tmpValue.data) {
                     var val = tmpValue.data
-                    
-                    
-                    
-                    
                     
                     
                     me.referenceValue = val
@@ -107,28 +87,23 @@
                 } else {
                     var idKey = 'id'
                     
-                    
-                    
-                    
-                    
                     var id = this.value[idKey];
-                    var path = '/machines/';
+                    var path = '/specs/';
                     this.$router.push(path + id);
                 }
             },
             select(val) {
                 var obj = {}
                 if(val != undefined) {
-                    var arr = this.list[val]._links.self.href.split('/');
-                    obj['id'] = arr[4]; 
+                    var uriParts = this.list[val]._links.self.href.split('/');
+                    obj = Number(uriParts.pop()); 
                     
-                    
-                    
-                    
-                    
-                    this.$emit('selected', obj);
                     this.referenceValue = this.list[val];
+                    
+                } else {
+                    this.referenceValue = null;
                 }
+                this.$emit('selected', obj);
             },
         },
     };

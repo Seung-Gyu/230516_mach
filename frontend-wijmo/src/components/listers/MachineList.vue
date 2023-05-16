@@ -14,6 +14,7 @@
                             
                             
                             
+                            
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
@@ -22,6 +23,7 @@
                             [ Name :  {{data.name }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ Spec :  {{data.spec }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ Model :  {{data.model }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ SpecId :  {{data.specId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -107,6 +109,7 @@
                 'name': '',
                 'spec': '',
                 'model': '',
+                'specId': {},
             }
         },
         methods: {

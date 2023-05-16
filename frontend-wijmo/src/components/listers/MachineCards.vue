@@ -81,6 +81,7 @@
                     'name': '',
                     'spec': '',
                     'model': '',
+                    'specId': {},
                 }
             },
 

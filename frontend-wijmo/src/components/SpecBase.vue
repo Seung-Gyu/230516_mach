@@ -3,11 +3,10 @@
 </template>
 
 <script>
-    import SpecBase from '../components/SpecBase.vue'
     const axios = require('axios').default;
 
     export default{
-        name: 'machine-base',
+        name: 'spec-base',
         props: {
             offline: Boolean
         },
@@ -46,7 +45,7 @@
             },
             async getRealEntity(id){
                try{
-                    let result = await axios.get(axios.fixUrl(`/machines/${id}`))
+                    let result = await axios.get(axios.fixUrl(`/specs/${id}`))
                     result.data.id = id;
                     return result.data;
                 }catch(e){
@@ -54,15 +53,10 @@
                 }
             },
             async processData(data){
-                let SpecClass = this.$Vue.extend(SpecBase);
-                this.specId = new SpecClass();
                 
 
                 let Promises = data.map(async (value) => {
                     if(value == null) return
-                    if (value.specId && value.specId.id){
-                        value.specId = await this.specId.getRealEntity(value.specId.id);
-                    }
                 });
                 await Promise.all(Promises);
                 for(var i = 0; i < data.length ; i++ ) {
@@ -79,11 +73,11 @@
                 } 
                 var temp = null;
                 if(query!=null){
-                    temp = await axios.put(axios.fixUrl('/machines/search/findByCode'), { code: query.parameters.code });
+                    temp = await axios.put(axios.fixUrl('/specs/search/findByName'), { name: query.parameters.name });
                     me.values = await me.processData(temp.data);
                 }else{
-                    temp = await axios.get(axios.fixUrl('/machines'))
-                    me.values = await me.processData(temp.data._embedded.machines);
+                    temp = await axios.get(axios.fixUrl('/specs'))
+                    me.values = await me.processData(temp.data._embedded.specs);
                 }
                 return me.values;
             },

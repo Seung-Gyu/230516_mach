@@ -71,6 +71,7 @@
                     { text: "name", value: "name" },
                     { text: "spec", value: "spec" },
                     { text: "model", value: "model" },
+                    { text: "specId", value: "specId" },
                 ],
             machine : [],
             newValue: {},
@@ -92,6 +93,7 @@
                 'name': '',
                 'spec': '',
                 'model': '',
+                'specId': {},
             }
         },
         methods: {
