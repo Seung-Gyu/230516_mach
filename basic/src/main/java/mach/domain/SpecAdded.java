@@ -7,20 +7,16 @@ import mach.infra.AbstractEvent;
 
 @Data
 @ToString
-public class MachineAdded extends AbstractEvent {
+public class SpecAdded extends AbstractEvent {
 
     private Long id;
-    private String code;
     private String name;
-    private String spec;
-    private String model;
-    private SpecId specId;
 
-    public MachineAdded(Machine aggregate) {
+    public SpecAdded(Spec aggregate) {
         super(aggregate);
     }
 
-    public MachineAdded() {
+    public SpecAdded() {
         super();
     }
 }

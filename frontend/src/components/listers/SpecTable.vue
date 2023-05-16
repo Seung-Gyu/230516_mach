@@ -31,10 +31,10 @@
                         </v-fab-transition>
                     </template>
 
-                    <Machine :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <Spec :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
-                            style="position:absolute; top:2%; right:2%"
+                            style="postition:absolute; top:2%; right:2%"
                             @click="closeDialog()"
                             depressed 
                             icon 
@@ -50,12 +50,12 @@
 
 <script>
     const axios = require('axios').default;
-    import Machine from './../Machine.vue';
+    import Spec from './../Spec.vue';
 
     export default {
-        name: 'MachineManager',
+        name: 'SpecManager',
         components: {
-            Machine,
+            Spec,
         },
         props: {
             offline: Boolean,
@@ -67,13 +67,9 @@
             headers: 
                 [
                     { text: "id", value: "id" },
-                    { text: "code", value: "code" },
                     { text: "name", value: "name" },
-                    { text: "spec", value: "spec" },
-                    { text: "model", value: "model" },
-                    { text: "specId", value: "specId" },
                 ],
-            machine : [],
+            spec : [],
             newValue: {},
             tick : true,
             openDialog : false,
@@ -84,16 +80,12 @@
                 return;
             }
 
-            var temp = await axios.get(axios.fixUrl('/machines'))
-            temp.data._embedded.machines.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
-            this.values = temp.data._embedded.machines;
+            var temp = await axios.get(axios.fixUrl('/specs'))
+            temp.data._embedded.specs.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
+            this.values = temp.data._embedded.specs;
 
             this.newValue = {
-                'code': '',
                 'name': '',
-                'spec': '',
-                'model': '',
-                'specId': {},
             }
         },
         methods: {

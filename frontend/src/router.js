@@ -7,6 +7,8 @@ Vue.use(Router);
 
 import MachineManager from "./components/listers/MachineCards"
 import MachineDetail from "./components/listers/MachineDetail"
+import SpecManager from "./components/listers/SpecCards"
+import SpecDetail from "./components/listers/SpecDetail"
 
 
 export default new Router({
@@ -22,6 +24,16 @@ export default new Router({
                 path: '/machines/:id',
                 name: 'MachineDetail',
                 component: MachineDetail
+            },
+            {
+                path: '/specs',
+                name: 'SpecManager',
+                component: SpecManager
+            },
+            {
+                path: '/specs/:id',
+                name: 'SpecDetail',
+                component: SpecDetail
             },
 
 
